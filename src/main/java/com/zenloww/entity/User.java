@@ -9,17 +9,22 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
+// @AllArgsConstructor
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userid;
+    private Integer userid;
 
     private String username;
     private String email;
     private String role;
 
+    public User(String username, String email, String role) {
+        this.username=username;
+        this.email=email;
+        this.role=role;
+    }
 }
