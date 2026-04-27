@@ -1,5 +1,6 @@
 package com.zenloww.entity;
 
+import com.zenloww.common.Status;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,18 +15,16 @@ import java.time.LocalDateTime;
 @Table(name = "tasks")
 public class Task {
 
-    enum Status{
-        PENDING,
-        COMPLETED
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer taskid;
 
     private String name;
     private String description;
+
+    @Enumerated(EnumType.STRING)
     private Status status;
+
     private LocalDateTime deadline;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
