@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -21,6 +24,9 @@ public class User {
     private String username;
     private String email;
     private String role;
+
+    @OneToMany(mappedBy = "user")
+    private List<Task> task = new ArrayList<>();
 
     public User(String username, String email, String role) {
         this.username=username;
