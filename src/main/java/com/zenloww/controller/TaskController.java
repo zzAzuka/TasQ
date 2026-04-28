@@ -12,7 +12,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/tasks/")
+@RequestMapping("/api/tasks")
 public class TaskController {
     private TaskService taskService;
 
@@ -38,5 +38,11 @@ public class TaskController {
     public ResponseEntity<String> removeTask(@PathVariable Integer taskid) {
         taskService.removeTask(taskid);
         return new ResponseEntity<> ("Removed Task!", HttpStatus.FOUND);
+    }
+
+    @PutMapping("/{taskid}/{userid}/{projectid}")
+    public ResponseEntity<TaskDto> assignUserProjectTask(@PathVariable Integer taskid, @PathVariable Integer userid, @PathVariable Integer projectid) {
+        TaskDto assignedTask = taskService.assignTask(taskid, userid, projectid);
+        return new ResponseEntity<> (assignedTask, HttpStatus.CREATED);
     }
 }
