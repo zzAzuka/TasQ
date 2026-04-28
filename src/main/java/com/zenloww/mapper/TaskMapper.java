@@ -9,9 +9,7 @@ public class TaskMapper {
             task.getName(),
             task.getDescription(),
             task.getStatus(),
-            task.getDeadline(),
-            task.getCreatedAt(),
-            task.getUpdatedAt()
+            task.getDeadline()
         );
     }
 
@@ -20,9 +18,7 @@ public class TaskMapper {
                 taskDto.getName(),
                 taskDto.getDescription(),
                 taskDto.getStatus(),
-                taskDto.getDeadline(),
-                taskDto.getCreatedAt(),
-                taskDto.getUpdatedAt()
+                taskDto.getDeadline()
         );
     }
 }

@@ -3,6 +3,7 @@ package com.zenloww.controller;
 import com.zenloww.dto.TaskDto;
 import com.zenloww.dto.UserDto;
 import com.zenloww.service.TaskService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,13 +24,13 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<TaskDto> createTask(@RequestBody TaskDto taskDto) {
+    public ResponseEntity<TaskDto> createTask(@Valid @RequestBody TaskDto taskDto) {
         TaskDto createdTask = taskService.createTask(taskDto);
         return new ResponseEntity<> (createdTask, HttpStatus.CREATED);
     }
 
     @PutMapping("/{taskid}")
-    public ResponseEntity<TaskDto> updateTask(@PathVariable Integer taskid, @RequestBody TaskDto taskDto) {
+    public ResponseEntity<TaskDto> updateTask(@PathVariable Integer taskid, @Valid @RequestBody TaskDto taskDto) {
         TaskDto updatedTask = taskService.updateTask(taskid, taskDto);
         return new ResponseEntity<> (updatedTask, HttpStatus.CREATED);
     }

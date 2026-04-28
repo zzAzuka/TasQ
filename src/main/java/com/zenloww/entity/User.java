@@ -1,5 +1,6 @@
 package com.zenloww.entity;
 
+import com.zenloww.common.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,12 +24,14 @@ public class User {
 
     private String username;
     private String email;
-    private String role;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @OneToMany(mappedBy = "user")
     private List<Task> task = new ArrayList<>();
 
-    public User(String username, String email, String role) {
+    public User(String username, String email, Role role) {
         this.username=username;
         this.email=email;
         this.role=role;

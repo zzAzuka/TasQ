@@ -37,12 +37,10 @@ public class Task {
     @JoinColumn(name = "projectid")
     private Project project;
 
-    public Task(String name, String description, Status status, LocalDateTime deadline, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Task(String name, String description, Status status, LocalDateTime deadline) {
         this.name=name;
         this.description=description;
         this.status=status;
         this.deadline=deadline;
-        this.createdAt= createdAt;
-        this.updatedAt=updatedAt;
     }
 }

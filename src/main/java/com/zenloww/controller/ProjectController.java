@@ -4,6 +4,7 @@ import com.zenloww.dto.ProjectDto;
 import com.zenloww.entity.UserProjectMembership;
 import com.zenloww.service.ProjectService;
 import com.zenloww.service.UserProjectService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class ProjectController {
     }
 
     @PostMapping
-    public ResponseEntity<ProjectDto> createProject(@RequestBody ProjectDto projectDto) {
+    public ResponseEntity<ProjectDto> createProject(@Valid @RequestBody ProjectDto projectDto) {
         ProjectDto createdProject = projectService.addProject(projectDto);
         return new ResponseEntity<>(createdProject, HttpStatus.CREATED);
     }

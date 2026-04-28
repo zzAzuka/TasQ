@@ -5,7 +5,6 @@ import com.zenloww.entity.Project;
 import com.zenloww.entity.Task;
 import com.zenloww.entity.User;
 import com.zenloww.mapper.TaskMapper;
-import com.zenloww.mapper.UserMapper;
 import com.zenloww.repository.ProjectRepository;
 import com.zenloww.repository.TaskRepository;
 import com.zenloww.repository.UserProjectRepository;
@@ -33,6 +32,8 @@ public class TaskService {
 
     public TaskDto createTask(TaskDto taskDto) {
         Task newTask = TaskMapper.mapToTask(taskDto);
+        newTask.setCreatedAt(LocalDateTime.now());
+        newTask.setUpdatedAt(LocalDateTime.now());
         Task createdTask = taskRepository.save(newTask);
         return (TaskMapper.mapToTaskDto(createdTask));
     }
