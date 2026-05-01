@@ -1,5 +1,6 @@
 package com.zenloww.controller;
 
+import com.zenloww.common.Status;
 import com.zenloww.dto.TaskDto;
 import com.zenloww.dto.UserDto;
 import com.zenloww.service.TaskService;
@@ -18,8 +19,26 @@ public class TaskController {
     private TaskService taskService;
 
     @GetMapping
-    public ResponseEntity<List<TaskDto>> getAllUTasks() {
+    public ResponseEntity<List<TaskDto>> getAllTasks() {
         List<TaskDto> taskList = taskService.getAllTasks();
+        return new ResponseEntity<>(taskList, HttpStatus.FOUND);
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<TaskDto>> getTaskByUser(@RequestParam(name="userid", required=false) Integer userid) {
+        List<TaskDto> taskList = taskService.getTaskByUser(userid);
+        return new ResponseEntity<>(taskList, HttpStatus.FOUND);
+    }
+
+    @GetMapping("/projects")
+    public ResponseEntity<List<TaskDto>> getTaskByProject(@RequestParam(name="projectid", required=false) Integer projectid) {
+        List<TaskDto> taskList = taskService.getTaskByProject(projectid);
+        return new ResponseEntity<>(taskList, HttpStatus.FOUND);
+    }
+
+    @GetMapping("/status")
+    public ResponseEntity<List<TaskDto>> getTaskByStatus(@RequestParam(name="status", required = false) Status status) {
+        List<TaskDto> taskList = taskService.getTaskByStatus(status);
         return new ResponseEntity<>(taskList, HttpStatus.FOUND);
     }
 

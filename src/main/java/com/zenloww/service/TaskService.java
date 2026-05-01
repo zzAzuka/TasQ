@@ -1,5 +1,6 @@
 package com.zenloww.service;
 
+import com.zenloww.common.Status;
 import com.zenloww.dto.TaskDto;
 import com.zenloww.entity.Project;
 import com.zenloww.entity.Task;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -25,6 +27,29 @@ public class TaskService {
 
     public List<TaskDto> getAllTasks() {
         List<Task> taskList = taskRepository.findAll();
+        return taskList.stream()
+                .map(TaskMapper::mapToTaskDto)
+                .toList();
+    }
+
+    public List<TaskDto> getTaskByUser(Integer userid) {
+        Optional<User> currentUser = userRepository.findById(userid);
+        List<Task> taskList = taskRepository.findByUser(currentUser);
+        return taskList.stream()
+                .map(TaskMapper::mapToTaskDto)
+                .toList();
+    }
+
+    public List<TaskDto> getTaskByProject(Integer projectid) {
+        Optional<Project> currentProject = projectRepository.findById(projectid);
+        List<Task> taskList = taskRepository.findByProject(currentProject);
+        return taskList.stream()
+                .map(TaskMapper::mapToTaskDto)
+                .toList();
+    }
+
+    public List<TaskDto> getTaskByStatus(Status status) {
+        List<Task> taskList = taskRepository.findByStatus(status);
         return taskList.stream()
                 .map(TaskMapper::mapToTaskDto)
                 .toList();
