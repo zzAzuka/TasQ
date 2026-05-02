@@ -6,6 +6,9 @@ import com.zenloww.dto.UserDto;
 import com.zenloww.service.TaskService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,26 +22,34 @@ public class TaskController {
     private TaskService taskService;
 
     @GetMapping
-    public ResponseEntity<List<TaskDto>> getAllTasks() {
-        List<TaskDto> taskList = taskService.getAllTasks();
+    public ResponseEntity<Page<TaskDto>> getAllTasks(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<TaskDto> taskList = taskService.getAllTasks(pageable);
         return new ResponseEntity<>(taskList, HttpStatus.FOUND);
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<TaskDto>> getTaskByUser(@RequestParam(name="userid", required=false) Integer userid) {
-        List<TaskDto> taskList = taskService.getTaskByUser(userid);
+    public ResponseEntity<Page<TaskDto>> getTaskByUser(@RequestParam(name="userid", required=false) Integer userid,
+                                                       @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<TaskDto> taskList = taskService.getTaskByUser(userid, pageable);
         return new ResponseEntity<>(taskList, HttpStatus.FOUND);
     }
 
     @GetMapping("/projects")
-    public ResponseEntity<List<TaskDto>> getTaskByProject(@RequestParam(name="projectid", required=false) Integer projectid) {
-        List<TaskDto> taskList = taskService.getTaskByProject(projectid);
+    public ResponseEntity<Page<TaskDto>> getTaskByProject(@RequestParam(name="projectid", required=false) Integer projectid,
+                                                          @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<TaskDto> taskList = taskService.getTaskByProject(projectid, pageable);
         return new ResponseEntity<>(taskList, HttpStatus.FOUND);
     }
 
     @GetMapping("/status")
-    public ResponseEntity<List<TaskDto>> getTaskByStatus(@RequestParam(name="status", required = false) Status status) {
-        List<TaskDto> taskList = taskService.getTaskByStatus(status);
+    public ResponseEntity<Page<TaskDto>> getTaskByStatus(@RequestParam(name="status", required = false) Status status,
+                                                         @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<TaskDto> taskList = taskService.getTaskByStatus(status, pageable);
         return new ResponseEntity<>(taskList, HttpStatus.FOUND);
     }
 

@@ -11,6 +11,8 @@ import com.zenloww.repository.TaskRepository;
 import com.zenloww.repository.UserProjectRepository;
 import com.zenloww.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,34 +27,27 @@ public class TaskService {
     private ProjectRepository projectRepository;
     private UserProjectRepository userProjectRepository;
 
-    public List<TaskDto> getAllTasks() {
-        List<Task> taskList = taskRepository.findAll();
-        return taskList.stream()
-                .map(TaskMapper::mapToTaskDto)
-                .toList();
+    public Page<TaskDto> getAllTasks(Pageable pageable) {
+        Page<Task> taskList = taskRepository.findAll(pageable);
+        return taskList.map(TaskMapper::mapToTaskDto);
     }
 
-    public List<TaskDto> getTaskByUser(Integer userid) {
+    public Page<TaskDto> getTaskByUser(Integer userid, Pageable pageable) {
         Optional<User> currentUser = userRepository.findById(userid);
-        List<Task> taskList = taskRepository.findByUser(currentUser);
-        return taskList.stream()
-                .map(TaskMapper::mapToTaskDto)
-                .toList();
+        Page<Task> taskList = taskRepository.findByUser(currentUser, pageable);
+        return taskList.map(TaskMapper::mapToTaskDto);
+
     }
 
-    public List<TaskDto> getTaskByProject(Integer projectid) {
+    public Page<TaskDto> getTaskByProject(Integer projectid, Pageable pageable) {
         Optional<Project> currentProject = projectRepository.findById(projectid);
-        List<Task> taskList = taskRepository.findByProject(currentProject);
-        return taskList.stream()
-                .map(TaskMapper::mapToTaskDto)
-                .toList();
+        Page<Task> taskList = taskRepository.findByProject(currentProject, pageable);
+        return taskList.map(TaskMapper::mapToTaskDto);
     }
 
-    public List<TaskDto> getTaskByStatus(Status status) {
-        List<Task> taskList = taskRepository.findByStatus(status);
-        return taskList.stream()
-                .map(TaskMapper::mapToTaskDto)
-                .toList();
+    public Page<TaskDto> getTaskByStatus(Status status, Pageable pageable) {
+        Page<Task> taskList = taskRepository.findByStatus(status, pageable);
+        return taskList.map(TaskMapper::mapToTaskDto);
     }
 
     public TaskDto createTask(TaskDto taskDto) {
