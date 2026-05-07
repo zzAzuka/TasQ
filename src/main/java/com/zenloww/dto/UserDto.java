@@ -22,5 +22,5 @@ public class UserDto {
     @Email(message = "Invalid email")
     private String email;
 
-    private Role role;
+    private String password;
 }

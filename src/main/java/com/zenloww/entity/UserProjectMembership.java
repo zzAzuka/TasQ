@@ -13,7 +13,7 @@ import lombok.Setter;
 public class UserProjectMembership {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userprojectid;
     private Integer userid;
     private Integer projectid;

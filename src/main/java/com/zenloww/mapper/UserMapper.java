@@ -8,7 +8,7 @@ public class UserMapper {
         return new UserDto(
                 user.getUsername(),
                 user.getEmail(),
-                user.getRole()
+                user.getPassword()
         );
     }
 
@@ -16,7 +16,7 @@ public class UserMapper {
         return new User(
                 userdto.getUsername(),
                 userdto.getEmail(),
-                userdto.getRole()
+                userdto.getPassword()
         );
     }
 }
